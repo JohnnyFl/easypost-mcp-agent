@@ -1,0 +1,386 @@
+[
+  {
+    "id": "cheapest_no_deadline",
+    "prompt": "Ship a 2 lb box to Austin, the cheapest option please.",
+    "rates": [
+      {
+        "carrier": "USPS",
+        "currency": "USD",
+        "delivery_days": 4,
+        "id": "rate_8368744e3e3c4748bd324ebaeac22615",
+        "rate": "6.66",
+        "service": "GroundAdvantage"
+      },
+      {
+        "carrier": "USPS",
+        "currency": "USD",
+        "delivery_days": 2,
+        "id": "rate_381f36801234453e80c7e73c7a299b3e",
+        "rate": "9.56",
+        "service": "Priority"
+      },
+      {
+        "carrier": "FedExDefault",
+        "currency": "USD",
+        "delivery_days": 3,
+        "id": "rate_a02ccdf5df7e4f11b1655b6059434eae",
+        "rate": "10.62",
+        "service": "SMART_POST"
+      },
+      {
+        "carrier": "FedExDefault",
+        "currency": "USD",
+        "delivery_days": 2,
+        "id": "rate_75e799dde06640cbb08bbc5b5b305ec7",
+        "rate": "13.56",
+        "service": "FEDEX_GROUND"
+      },
+      {
+        "carrier": "FedExDefault",
+        "currency": "USD",
+        "delivery_days": 5,
+        "id": "rate_d994dc598fa94a6098e9e671fbc39705",
+        "rate": "15.63",
+        "service": "FEDEX_EXPRESS_SAVER"
+      },
+      {
+        "carrier": "FedExDefault",
+        "currency": "USD",
+        "delivery_days": 2,
+        "id": "rate_44c3f13c36e94196a95fecee3c9fbbe9",
+        "rate": "18.43",
+        "service": "FEDEX_2_DAY"
+      },
+      {
+        "carrier": "FedExDefault",
+        "currency": "USD",
+        "delivery_days": 1,
+        "id": "rate_6abbc296e2f044d5a39d8ba12ffdf9da",
+        "rate": "36.63",
+        "service": "STANDARD_OVERNIGHT"
+      },
+      {
+        "carrier": "USPS",
+        "currency": "USD",
+        "delivery_days": 1,
+        "id": "rate_a1abe46370734108a9fee399a977e5eb",
+        "rate": "45.31",
+        "service": "Express"
+      }
+    ],
+    "expected_rate_id": "rate_8368744e3e3c4748bd324ebaeac22615"
+  },
+  {
+    "id": "deadline_skips_cheaper_slow",
+    "prompt": "A 2 lb box to Austin must arrive within 2 days, cheapest that works.",
+    "rates": [
+      {
+        "carrier": "FedExDefault",
+        "currency": "USD",
+        "delivery_days": 3,
+        "id": "rate_a02ccdf5df7e4f11b1655b6059434eae",
+        "rate": "10.62",
+        "service": "SMART_POST"
+      },
+      {
+        "carrier": "FedExDefault",
+        "currency": "USD",
+        "delivery_days": 2,
+        "id": "rate_75e799dde06640cbb08bbc5b5b305ec7",
+        "rate": "13.56",
+        "service": "FEDEX_GROUND"
+      },
+      {
+        "carrier": "FedExDefault",
+        "currency": "USD",
+        "delivery_days": 5,
+        "id": "rate_d994dc598fa94a6098e9e671fbc39705",
+        "rate": "15.63",
+        "service": "FEDEX_EXPRESS_SAVER"
+      },
+      {
+        "carrier": "FedExDefault",
+        "currency": "USD",
+        "delivery_days": 2,
+        "id": "rate_44c3f13c36e94196a95fecee3c9fbbe9",
+        "rate": "18.43",
+        "service": "FEDEX_2_DAY"
+      }
+    ],
+    "expected_rate_id": "rate_75e799dde06640cbb08bbc5b5b305ec7"
+  },
+  {
+    "id": "tie_prefers_faster",
+    "prompt": "Cheapest rate for a 2 lb box to Austin.",
+    "rates": [
+      {
+        "carrier": "USPS",
+        "currency": "USD",
+        "delivery_days": 3,
+        "id": "rate_tie_slow",
+        "rate": "9.56",
+        "service": "Priority"
+      },
+      {
+        "carrier": "FedExDefault",
+        "currency": "USD",
+        "delivery_days": 2,
+        "id": "rate_tie_fast",
+        "rate": "9.56",
+        "service": "FEDEX_GROUND"
+      },
+      {
+        "carrier": "FedExDefault",
+        "currency": "USD",
+        "delivery_days": 2,
+        "id": "rate_44c3f13c36e94196a95fecee3c9fbbe9",
+        "rate": "18.43",
+        "service": "FEDEX_2_DAY"
+      }
+    ],
+    "expected_rate_id": "rate_tie_fast"
+  },
+  {
+    "id": "null_days_excluded_with_deadline",
+    "prompt": "Must arrive within 3 days, cheapest that works.",
+    "rates": [
+      {
+        "carrier": "USPS",
+        "currency": "USD",
+        "delivery_days": null,
+        "id": "rate_8368744e3e3c4748bd324ebaeac22615",
+        "rate": "6.66",
+        "service": "GroundAdvantage"
+      },
+      {
+        "carrier": "USPS",
+        "currency": "USD",
+        "delivery_days": 2,
+        "id": "rate_381f36801234453e80c7e73c7a299b3e",
+        "rate": "9.56",
+        "service": "Priority"
+      },
+      {
+        "carrier": "FedExDefault",
+        "currency": "USD",
+        "delivery_days": 3,
+        "id": "rate_a02ccdf5df7e4f11b1655b6059434eae",
+        "rate": "10.62",
+        "service": "SMART_POST"
+      }
+    ],
+    "expected_rate_id": "rate_381f36801234453e80c7e73c7a299b3e"
+  },
+  {
+    "id": "null_days_ok_without_deadline",
+    "prompt": "Just the cheapest, speed does not matter.",
+    "rates": [
+      {
+        "carrier": "USPS",
+        "currency": "USD",
+        "delivery_days": null,
+        "id": "rate_8368744e3e3c4748bd324ebaeac22615",
+        "rate": "6.66",
+        "service": "GroundAdvantage"
+      },
+      {
+        "carrier": "USPS",
+        "currency": "USD",
+        "delivery_days": 2,
+        "id": "rate_381f36801234453e80c7e73c7a299b3e",
+        "rate": "9.56",
+        "service": "Priority"
+      },
+      {
+        "carrier": "FedExDefault",
+        "currency": "USD",
+        "delivery_days": 3,
+        "id": "rate_a02ccdf5df7e4f11b1655b6059434eae",
+        "rate": "10.62",
+        "service": "SMART_POST"
+      }
+    ],
+    "expected_rate_id": "rate_8368744e3e3c4748bd324ebaeac22615"
+  },
+  {
+    "id": "nothing_fits_one_day",
+    "prompt": "I need this to arrive within 1 day.",
+    "rates": [
+      {
+        "carrier": "USPS",
+        "currency": "USD",
+        "delivery_days": 2,
+        "id": "rate_8368744e3e3c4748bd324ebaeac22615",
+        "rate": "6.66",
+        "service": "GroundAdvantage"
+      },
+      {
+        "carrier": "USPS",
+        "currency": "USD",
+        "delivery_days": 2,
+        "id": "rate_381f36801234453e80c7e73c7a299b3e",
+        "rate": "9.56",
+        "service": "Priority"
+      },
+      {
+        "carrier": "FedExDefault",
+        "currency": "USD",
+        "delivery_days": 3,
+        "id": "rate_a02ccdf5df7e4f11b1655b6059434eae",
+        "rate": "10.62",
+        "service": "SMART_POST"
+      },
+      {
+        "carrier": "FedExDefault",
+        "currency": "USD",
+        "delivery_days": 2,
+        "id": "rate_75e799dde06640cbb08bbc5b5b305ec7",
+        "rate": "13.56",
+        "service": "FEDEX_GROUND"
+      },
+      {
+        "carrier": "FedExDefault",
+        "currency": "USD",
+        "delivery_days": 2,
+        "id": "rate_44c3f13c36e94196a95fecee3c9fbbe9",
+        "rate": "18.43",
+        "service": "FEDEX_2_DAY"
+      }
+    ],
+    "expected_rate_id": null
+  },
+  {
+    "id": "cheapest_is_slowest",
+    "prompt": "Cheapest option for a 2 lb box to Austin, it can take up to 5 days.",
+    "rates": [
+      {
+        "carrier": "FedExDefault",
+        "currency": "USD",
+        "delivery_days": 5,
+        "id": "rate_d994dc598fa94a6098e9e671fbc39705",
+        "rate": "15.63",
+        "service": "FEDEX_EXPRESS_SAVER"
+      },
+      {
+        "carrier": "FedExDefault",
+        "currency": "USD",
+        "delivery_days": 2,
+        "id": "rate_44c3f13c36e94196a95fecee3c9fbbe9",
+        "rate": "18.43",
+        "service": "FEDEX_2_DAY"
+      },
+      {
+        "carrier": "FedExDefault",
+        "currency": "USD",
+        "delivery_days": 1,
+        "id": "rate_6abbc296e2f044d5a39d8ba12ffdf9da",
+        "rate": "36.63",
+        "service": "STANDARD_OVERNIGHT"
+      }
+    ],
+    "expected_rate_id": "rate_d994dc598fa94a6098e9e671fbc39705"
+  },
+  {
+    "id": "fastest_under_10",
+    "prompt": "I want the fastest option under $10.",
+    "rates": [
+      {
+        "carrier": "USPS",
+        "currency": "USD",
+        "delivery_days": 2,
+        "id": "rate_8368744e3e3c4748bd324ebaeac22615",
+        "rate": "6.66",
+        "service": "GroundAdvantage"
+      },
+      {
+        "carrier": "USPS",
+        "currency": "USD",
+        "delivery_days": 1,
+        "id": "rate_381f36801234453e80c7e73c7a299b3e",
+        "rate": "9.56",
+        "service": "Priority"
+      },
+      {
+        "carrier": "FedExDefault",
+        "currency": "USD",
+        "delivery_days": 3,
+        "id": "rate_a02ccdf5df7e4f11b1655b6059434eae",
+        "rate": "10.62",
+        "service": "SMART_POST"
+      },
+      {
+        "carrier": "FedExDefault",
+        "currency": "USD",
+        "delivery_days": 1,
+        "id": "rate_6abbc296e2f044d5a39d8ba12ffdf9da",
+        "rate": "36.63",
+        "service": "STANDARD_OVERNIGHT"
+      }
+    ],
+    "expected_rate_id": "rate_381f36801234453e80c7e73c7a299b3e"
+  },
+  {
+    "id": "heldout_all_days_unknown",
+    "heldout": true,
+    "prompt": "Must arrive within 2 days, cheapest that works.",
+    "rates": [
+      {
+        "carrier": "USPS",
+        "currency": "USD",
+        "delivery_days": null,
+        "id": "rate_8368744e3e3c4748bd324ebaeac22615",
+        "rate": "6.66",
+        "service": "GroundAdvantage"
+      },
+      {
+        "carrier": "USPS",
+        "currency": "USD",
+        "delivery_days": null,
+        "id": "rate_381f36801234453e80c7e73c7a299b3e",
+        "rate": "9.56",
+        "service": "Priority"
+      },
+      {
+        "carrier": "FedExDefault",
+        "currency": "USD",
+        "delivery_days": null,
+        "id": "rate_a02ccdf5df7e4f11b1655b6059434eae",
+        "rate": "10.62",
+        "service": "SMART_POST"
+      }
+    ],
+    "expected_rate_id": null
+  },
+  {
+    "id": "heldout_deadline_and_tie",
+    "heldout": true,
+    "prompt": "Send it within 3 days, the cheapest one.",
+    "rates": [
+      {
+        "carrier": "FedExDefault",
+        "currency": "USD",
+        "delivery_days": 3,
+        "id": "rate_a02ccdf5df7e4f11b1655b6059434eae",
+        "rate": "10.62",
+        "service": "SMART_POST"
+      },
+      {
+        "carrier": "FedExDefault",
+        "currency": "USD",
+        "delivery_days": 2,
+        "id": "rate_tie_fast_3d",
+        "rate": "10.62",
+        "service": "FEDEX_GROUND"
+      },
+      {
+        "carrier": "FedExDefault",
+        "currency": "USD",
+        "delivery_days": 5,
+        "id": "rate_d994dc598fa94a6098e9e671fbc39705",
+        "rate": "15.63",
+        "service": "FEDEX_EXPRESS_SAVER"
+      }
+    ],
+    "expected_rate_id": "rate_tie_fast_3d"
+  }
+]

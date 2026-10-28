@@ -1,0 +1,104 @@
+{
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"mode\":\"test\",\"rates\":[{\"carrier\":\"USPS\",\"currency\":\"USD\",\"delivery_days\":2,\"id\":\"rate_8368744e3e3c4748bd324ebaeac22615\",\"rate\":\"6.66\",\"service\":\"GroundAdvantage\"},{\"carrier\":\"USPS\",\"currency\":\"USD\",\"delivery_days\":2,\"id\":\"rate_381f36801234453e80c7e73c7a299b3e\",\"rate\":\"9.56\",\"service\":\"Priority\"},{\"carrier\":\"FedExDefault\",\"currency\":\"USD\",\"delivery_days\":3,\"id\":\"rate_a02ccdf5df7e4f11b1655b6059434eae\",\"rate\":\"10.62\",\"service\":\"SMART_POST\"},{\"carrier\":\"FedExDefault\",\"currency\":\"USD\",\"delivery_days\":2,\"id\":\"rate_75e799dde06640cbb08bbc5b5b305ec7\",\"rate\":\"13.56\",\"service\":\"FEDEX_GROUND\"},{\"carrier\":\"FedExDefault\",\"currency\":\"USD\",\"delivery_days\":5,\"id\":\"rate_d994dc598fa94a6098e9e671fbc39705\",\"rate\":\"15.63\",\"service\":\"FEDEX_EXPRESS_SAVER\"},{\"carrier\":\"FedExDefault\",\"currency\":\"USD\",\"delivery_days\":2,\"id\":\"rate_44c3f13c36e94196a95fecee3c9fbbe9\",\"rate\":\"18.43\",\"service\":\"FEDEX_2_DAY\"},{\"carrier\":\"FedExDefault\",\"currency\":\"USD\",\"delivery_days\":1,\"id\":\"rate_6abbc296e2f044d5a39d8ba12ffdf9da\",\"rate\":\"36.63\",\"service\":\"STANDARD_OVERNIGHT\"},{\"carrier\":\"FedExDefault\",\"currency\":\"USD\",\"delivery_days\":2,\"id\":\"rate_efa7207fc62f461088549f017cd86a99\",\"rate\":\"39.88\",\"service\":\"FEDEX_2_DAY_AM\"},{\"carrier\":\"FedExDefault\",\"currency\":\"USD\",\"delivery_days\":1,\"id\":\"rate_7825df79e31646c490d77721bb4c33ff\",\"rate\":\"40.72\",\"service\":\"PRIORITY_OVERNIGHT\"},{\"carrier\":\"USPS\",\"currency\":\"USD\",\"delivery_days\":1,\"id\":\"rate_a1abe46370734108a9fee399a977e5eb\",\"rate\":\"45.31\",\"service\":\"Express\"},{\"carrier\":\"FedExDefault\",\"currency\":\"USD\",\"delivery_days\":1,\"id\":\"rate_bbfbdc2038ce4048abd3999070f5e549\",\"rate\":\"164.34\",\"service\":\"FIRST_OVERNIGHT\"}],\"shipment_id\":\"shp_a25bc22a9f5141debe718dce266ae2dd\"}"
+      }
+    ],
+    "structuredContent": {
+      "mode": "test",
+      "rates": [
+        {
+          "carrier": "USPS",
+          "currency": "USD",
+          "delivery_days": 2,
+          "id": "rate_8368744e3e3c4748bd324ebaeac22615",
+          "rate": "6.66",
+          "service": "GroundAdvantage"
+        },
+        {
+          "carrier": "USPS",
+          "currency": "USD",
+          "delivery_days": 2,
+          "id": "rate_381f36801234453e80c7e73c7a299b3e",
+          "rate": "9.56",
+          "service": "Priority"
+        },
+        {
+          "carrier": "FedExDefault",
+          "currency": "USD",
+          "delivery_days": 3,
+          "id": "rate_a02ccdf5df7e4f11b1655b6059434eae",
+          "rate": "10.62",
+          "service": "SMART_POST"
+        },
+        {
+          "carrier": "FedExDefault",
+          "currency": "USD",
+          "delivery_days": 2,
+          "id": "rate_75e799dde06640cbb08bbc5b5b305ec7",
+          "rate": "13.56",
+          "service": "FEDEX_GROUND"
+        },
+        {
+          "carrier": "FedExDefault",
+          "currency": "USD",
+          "delivery_days": 5,
+          "id": "rate_d994dc598fa94a6098e9e671fbc39705",
+          "rate": "15.63",
+          "service": "FEDEX_EXPRESS_SAVER"
+        },
+        {
+          "carrier": "FedExDefault",
+          "currency": "USD",
+          "delivery_days": 2,
+          "id": "rate_44c3f13c36e94196a95fecee3c9fbbe9",
+          "rate": "18.43",
+          "service": "FEDEX_2_DAY"
+        },
+        {
+          "carrier": "FedExDefault",
+          "currency": "USD",
+          "delivery_days": 1,
+          "id": "rate_6abbc296e2f044d5a39d8ba12ffdf9da",
+          "rate": "36.63",
+          "service": "STANDARD_OVERNIGHT"
+        },
+        {
+          "carrier": "FedExDefault",
+          "currency": "USD",
+          "delivery_days": 2,
+          "id": "rate_efa7207fc62f461088549f017cd86a99",
+          "rate": "39.88",
+          "service": "FEDEX_2_DAY_AM"
+        },
+        {
+          "carrier": "FedExDefault",
+          "currency": "USD",
+          "delivery_days": 1,
+          "id": "rate_7825df79e31646c490d77721bb4c33ff",
+          "rate": "40.72",
+          "service": "PRIORITY_OVERNIGHT"
+        },
+        {
+          "carrier": "USPS",
+          "currency": "USD",
+          "delivery_days": 1,
+          "id": "rate_a1abe46370734108a9fee399a977e5eb",
+          "rate": "45.31",
+          "service": "Express"
+        },
+        {
+          "carrier": "FedExDefault",
+          "currency": "USD",
+          "delivery_days": 1,
+          "id": "rate_bbfbdc2038ce4048abd3999070f5e549",
+          "rate": "164.34",
+          "service": "FIRST_OVERNIGHT"
+        }
+      ],
+      "shipment_id": "shp_a25bc22a9f5141debe718dce266ae2dd"
+    }
+  }
+}
