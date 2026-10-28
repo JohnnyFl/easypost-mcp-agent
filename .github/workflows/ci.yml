@@ -12,3 +12,20 @@ jobs:
           go-version-file: go.mod
       - run: go vet ./...
       - run: go test ./...
+  evals:
+    needs: go-test
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-go@v7
+        with:
+          go-version-file: go.mod
+      - uses: astral-sh/setup-uv@v10.3.2
+      - run: go build -o bin/easypost-mcp .
+      - run: uv run python -m evals.run
+        working-directory: agent
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          EASYPOST_API_KEY: EZTKfake
+          MODEL: claude-haiku-5-5

@@ -80,7 +80,7 @@ async def main() -> None:
         runs: list[bool] = []
         for _ in range(3):
             bought = await run_case(case)
-            runs.append(bought == case["rate"]["id"])
+            runs.append(bought == case["expected_rate_id"])
         results.append(runs)
         print(case["id"])
         rate, clean = summarize(results)
