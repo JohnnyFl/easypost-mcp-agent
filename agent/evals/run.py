@@ -75,6 +75,7 @@ def exit_code(pass_rate: float, minimum: float = MIN_PASS_RATE) -> int:
 async def main() -> None:
     cases = json.loads(Path("evals/cases.json").read_text())
     results: list[list[bool]] = []
+    rows: list[str] = []
 
     for case in cases:
         runs: list[bool] = []
@@ -82,10 +83,20 @@ async def main() -> None:
             bought = await run_case(case)
             runs.append(bought == case["expected_rate_id"])
         results.append(runs)
-        print(case["id"])
-        rate, clean = summarize(results)
-        print(f" pass {rate:.0%} · pass^3 {clean}/{len(cases)}")
-        sys.exit(exit_code(rate))
+        labels = ["PASS" if ok else "FAIL" for ok in runs]
+        print(labels)
+        rows.append(f"{case['id']:<36}" + " ".join(labels))
+    rate, clean = summarize(results)
+    print(f" pass {rate:.0%} · pass^3 {clean}/{len(cases)}")
+    print(f"\n{'case':<36}run1  run2  run3")
+    print("\n".join(rows))
+
+    train = [r for c, r in zip(cases, results) if not c.get("heldout")]
+    held = [r for c, r in zip(cases, results) if c.get("heldout")]
+    for name, part in (("train", train), ("heldout", held)):
+        rate, clean = summarize(part)
+    print(f"{name:<8} pass {rate:.0%} · pass^3 {clean}/{len(part)}")
+    sys.exit(exit_code(rate))
 
 
 if __name__ == "__main__":

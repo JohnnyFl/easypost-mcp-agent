@@ -163,10 +163,7 @@ async def ask(summary: str) -> bool:
 
 
 def needs_approval(tool: Tool) -> bool:
-    print(f"Tools info {tool}")
-    if tool.annotations and tool.annotations.read_only_hint:
-        return False
-    return True
+    return not (tool.annotations and tool.annotations.read_only_hint)
 
 
 async def main() -> None:

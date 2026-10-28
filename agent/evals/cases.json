@@ -1,7 +1,7 @@
 [
   {
     "id": "cheapest_no_deadline",
-    "prompt": "Ship a 2 lb box to Austin, the cheapest option please.",
+    "prompt": "From: 417 Montgomery St, San Francisco, CA 94104, US. To: 1 Main St, Austin, TX 78701, US. Parcel: 10x8x6 in, 32 oz.Ship a 2 lb box to Austin, the cheapest option please.",
     "rates": [
       {
         "carrier": "USPS",
@@ -72,7 +72,7 @@
   },
   {
     "id": "deadline_skips_cheaper_slow",
-    "prompt": "A 2 lb box to Austin must arrive within 2 days, cheapest that works.",
+    "prompt": "From: 417 Montgomery St, San Francisco, CA 94104, US. To: 1 Main St, Austin, TX 78701, US. Parcel: 10x8x6 in, 32 oz.A 2 lb box to Austin must arrive within 2 days, cheapest that works.",
     "rates": [
       {
         "carrier": "FedExDefault",
@@ -111,7 +111,7 @@
   },
   {
     "id": "tie_prefers_faster",
-    "prompt": "Cheapest rate for a 2 lb box to Austin.",
+    "prompt": "From: 417 Montgomery St, San Francisco, CA 94104, US. To: 1 Main St, Austin, TX 78701, US. Parcel: 10x8x6 in, 32 oz.Cheapest rate for a 2 lb box to Austin.",
     "rates": [
       {
         "carrier": "USPS",
@@ -142,7 +142,7 @@
   },
   {
     "id": "null_days_excluded_with_deadline",
-    "prompt": "Must arrive within 3 days, cheapest that works.",
+    "prompt": "From: 417 Montgomery St, San Francisco, CA 94104, US. To: 1 Main St, Austin, TX 78701, US. Parcel: 10x8x6 in, 32 oz.Must arrive within 3 days, cheapest that works.",
     "rates": [
       {
         "carrier": "USPS",
@@ -173,7 +173,7 @@
   },
   {
     "id": "null_days_ok_without_deadline",
-    "prompt": "Just the cheapest, speed does not matter.",
+    "prompt": "From: 417 Montgomery St, San Francisco, CA 94104, US. To: 1 Main St, Austin, TX 78701, US. Parcel: 10x8x6 in, 32 oz.Just the cheapest, speed does not matter.",
     "rates": [
       {
         "carrier": "USPS",
@@ -204,7 +204,7 @@
   },
   {
     "id": "nothing_fits_one_day",
-    "prompt": "I need this to arrive within 1 day.",
+    "prompt": "From: 417 Montgomery St, San Francisco, CA 94104, US. To: 1 Main St, Austin, TX 78701, US. Parcel: 10x8x6 in, 32 oz.I need this to arrive within 1 day.",
     "rates": [
       {
         "carrier": "USPS",
@@ -251,7 +251,7 @@
   },
   {
     "id": "cheapest_is_slowest",
-    "prompt": "Cheapest option for a 2 lb box to Austin, it can take up to 5 days.",
+    "prompt": "From: 417 Montgomery St, San Francisco, CA 94104, US. To: 1 Main St, Austin, TX 78701, US. Parcel: 10x8x6 in, 32 oz.Cheapest option for a 2 lb box to Austin, it can take up to 5 days.",
     "rates": [
       {
         "carrier": "FedExDefault",
@@ -282,7 +282,7 @@
   },
   {
     "id": "fastest_under_10",
-    "prompt": "I want the fastest option under $10.",
+    "prompt": "From: 417 Montgomery St, San Francisco, CA 94104, US. To: 1 Main St, Austin, TX 78701, US. Parcel: 10x8x6 in, 32 oz.I want the fastest option under $10.",
     "rates": [
       {
         "carrier": "USPS",
@@ -322,7 +322,7 @@
   {
     "id": "heldout_all_days_unknown",
     "heldout": true,
-    "prompt": "Must arrive within 2 days, cheapest that works.",
+    "prompt": "From: 417 Montgomery St, San Francisco, CA 94104, US. To: 1 Main St, Austin, TX 78701, US. Parcel: 10x8x6 in, 32 oz.Must arrive within 2 days, cheapest that works.",
     "rates": [
       {
         "carrier": "USPS",
@@ -354,7 +354,7 @@
   {
     "id": "heldout_deadline_and_tie",
     "heldout": true,
-    "prompt": "Send it within 3 days, the cheapest one.",
+    "prompt": "From: 417 Montgomery St, San Francisco, CA 94104, US. To: 1 Main St, Austin, TX 78701, US. Parcel: 10x8x6 in, 32 oz.Send it within 3 days, the cheapest one.",
     "rates": [
       {
         "carrier": "FedExDefault",
