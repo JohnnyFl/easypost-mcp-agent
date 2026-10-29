@@ -8,17 +8,23 @@ package main
 
 import (
 	"context"
+	"crypto/subtle"
 	"errors"
 	"flag"
 	"fmt"
+	"io"
 	"log"
+	"log/slog"
 	"net/http"
 	"os"
 	"slices"
 	"time"
 
+	"github.com/modelcontextprotocol/go-sdk/auth"
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
+
+var logger = newLogger(os.Stderr)
 
 type RatesIn struct {
 	From    Address `json:"from"`
@@ -64,6 +70,39 @@ type TrackOut struct {
 	Events          []TrackEvent `json:"events" jsonschema:"Up to 5 latest tracking events, newest first"`
 }
 
+func newLogger(w io.Writer) *slog.Logger {
+	return slog.New(slog.NewJSONHandler(w, nil))
+}
+
+func logToolCall(l *slog.Logger, tool string, d time.Duration, err error) {
+	l.Info("tool call", "tool", tool, "ms", d.Milliseconds(), "is_error", err != nil)
+}
+
+func newHTTPHandler(server *mcp.Server, token string) (http.Handler, error) {
+	if token == "" {
+		return nil, errors.New("MCP_TOKEN is empty")
+	}
+
+	verify := func(ctx context.Context, tok string, _ *http.Request) (*auth.TokenInfo, error) {
+		if subtle.ConstantTimeCompare([]byte(tok), []byte(token)) != 1 {
+			return nil, auth.ErrInvalidToken
+		}
+		return &auth.TokenInfo{}, nil
+	}
+
+	h := mcp.NewStreamableHTTPHandler(
+		func(request *http.Request) *mcp.Server {
+			return server
+		}, &mcp.StreamableHTTPOptions{Stateless: true, JSONResponse: true, DisableLocalhostProtection: true})
+	mux := http.NewServeMux()
+	mux.HandleFunc("/healthz", func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusOK)
+	})
+	opts := &auth.RequireBearerTokenOptions{AllowMissingExpiration: true}
+	mux.Handle("/mcp", auth.RequireBearerToken(verify, opts)(h))
+	return mux, nil
+}
+
 func newServer(c *Client) *mcp.Server {
 	s := mcp.NewServer(&mcp.Implementation{Name: "easypost-mcp", Version: "0.1.0"}, nil)
 
@@ -71,7 +110,9 @@ func newServer(c *Client) *mcp.Server {
 		Name:        "get_rates",
 		Description: "Create an EasyPost shipment and return available carrier rates, cheapest first. Does not buy anything.",
 		Annotations: &mcp.ToolAnnotations{ReadOnlyHint: true},
-	}, func(ctx context.Context, _ *mcp.CallToolRequest, in RatesIn) (*mcp.CallToolResult, RatesOut, error) {
+	}, func(ctx context.Context, _ *mcp.CallToolRequest, in RatesIn) (res *mcp.CallToolResult, out RatesOut, err error) {
+		start := time.Now()
+		defer func() { logToolCall(logger, "get_rates", time.Since(start), err) }()
 		sh, err := c.CreateShipment(ctx, in.From, in.To, in.Parcel)
 		if err != nil {
 			return nil, RatesOut{}, err
@@ -85,12 +126,14 @@ func newServer(c *Client) *mcp.Server {
 		Description: "Buy a shipping label for a shipment at the given rate. Spends money in production mode. " +
 			"Only call after a human has explicitly approved this exact carrier, service and price.",
 		Annotations: &mcp.ToolAnnotations{DestructiveHint: &destructive},
-	}, func(ctx context.Context, _ *mcp.CallToolRequest, in BuyIn) (*mcp.CallToolResult, BuyOut, error) {
+	}, func(ctx context.Context, _ *mcp.CallToolRequest, in BuyIn) (res *mcp.CallToolResult, out BuyOut, err error) {
+		start := time.Now()
+		defer func() { logToolCall(logger, "buy_label", time.Since(start), err) }()
 		sh, err := c.Buy(ctx, in.ShipmentID, in.RateID)
 		if err != nil {
 			return nil, BuyOut{}, err
 		}
-		out := BuyOut{TrackingCode: sh.TrackingCode, Mode: sh.Mode}
+		out = BuyOut{TrackingCode: sh.TrackingCode, Mode: sh.Mode}
 		if sh.PostageLabel != nil {
 			out.LabelURL = sh.PostageLabel.LabelURL
 		}
@@ -103,7 +146,9 @@ func newServer(c *Client) *mcp.Server {
 			"But only when user has tracking code for shipments. Does not buy or change anything. " +
 			"Test codes can be similar to these EZ1000000001, EZ2000000002, EZ4000000004, EZ6000000006",
 		Annotations: &mcp.ToolAnnotations{ReadOnlyHint: true, OpenWorldHint: new(true)},
-	}, func(ctx context.Context, _ *mcp.CallToolRequest, input TrackIn) (*mcp.CallToolResult, TrackOut, error) {
+	}, func(ctx context.Context, _ *mcp.CallToolRequest, input TrackIn) (res *mcp.CallToolResult, out TrackOut, err error) {
+		start := time.Now()
+		defer func() { logToolCall(logger, "track_shipment", time.Since(start), err) }()
 		tr, err := c.Track(ctx, input.TrackingCode, input.Carrier)
 		if err != nil {
 			return nil, TrackOut{}, err
@@ -132,7 +177,7 @@ func newServer(c *Client) *mcp.Server {
 				})
 			}
 		}
-		out := TrackOut{TrackingCode: tr.TrackingCode, Mode: tr.Mode, Status: tr.Status, EstDeliveryDate: formatedDate, Events: events}
+		out = TrackOut{TrackingCode: tr.TrackingCode, Mode: tr.Mode, Status: tr.Status, EstDeliveryDate: formatedDate, Events: events}
 		return nil, out, nil
 
 	})
@@ -175,8 +220,10 @@ func main() {
 		}
 		return
 	}
-	// ponytail: no auth on the HTTP endpoint; put it behind an API key or IAM before exposing publicly.
-	handler := mcp.NewStreamableHTTPHandler(func(*http.Request) *mcp.Server { return server }, &mcp.StreamableHTTPOptions{Stateless: true, JSONResponse: true})
+	handler, err := newHTTPHandler(server, os.Getenv("MCP_TOKEN"))
+	if err != nil {
+		log.Fatal(err)
+	}
 	log.Printf("listening on %s", *addr)
 	log.Fatal(http.ListenAndServe(*addr, handler))
 }

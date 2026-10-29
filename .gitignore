@@ -16,3 +16,4 @@ quests/
 *.tfvars
 .terraform/
 *.tfstate*
+trust.json
